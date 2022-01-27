@@ -8,7 +8,7 @@ You can read more over there.
 
 To view the dashboard itself, first install the dependencies:
 ```
->>> pip install -r requirements_wrangling.txt
+>>> pip install -r requirements.txt
 ```
 Then run the dashboard and navigate to the link where it is hosted locally
 on your machine:
@@ -23,7 +23,12 @@ Dash is running on http://127.0.0.1:8050/
  * Debug mode: on
 ```
 
-## Extras
+## Extra: Histogram generation
+
+To see how I generated the histogram of the file's point-to-point distances,
+check out `make_hist.py`.
+
+## Extra: Data wrangling
 
 If you are interested in how the data wrangling happens, you'll need
 to install the extra requirements:

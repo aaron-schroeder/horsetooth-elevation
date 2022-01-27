@@ -1,4 +1,4 @@
-"""Display data from a csv Activity file."""
+"""Display data from a csv Activity file in an interactive dashboard."""
 import math
 
 from dash import Dash, dcc, html
@@ -149,7 +149,7 @@ def create_dash_app():
 
 
 def create_fig(df, df_sub=None):
-  """Catch-all controller function for dashboard layout logic.
+  """Generate a plotly figure of an elevation profile.
 
   Creates a plotly figure for use as `dcc.Graph.figure` representing
   the elevation profile contained in the input DataFrame. The first
@@ -166,7 +166,7 @@ def create_fig(df, df_sub=None):
       of the data in ``df``, re-sampled at even distance intervals.
 
   Returns:
-    plotly.graph_objects.Figure: figure to be used with `dcc.Graph`.
+    plotly.graph_objects.Figure: figure to be used with `dcc.Graph`
   """
   fig = go.Figure(layout=dict(
     xaxis=dict(
@@ -294,21 +294,20 @@ def create_fig(df, df_sub=None):
 
 
 def create_stats_table(df_sub=None):
-  """Catch-all controller function for dashboard layout logic.
+  """Generate a table of statistics about an elevation profile.
 
-  Creates a plotly figure for use as `dcc.Graph.figure` representing
-  the elevation profile contained in the input DataFrame. The first
-  trace represents the raw data. If ``df_sub`` is passed as an input,
-  a second trace is added with the sub-sampled elevation profile data,
-  including a filled area between each pair of points representing the
-  grade between them.
+  Creates a list for use as `dcc.Div.children` containing a single
+  `dbc.Table` with statistics about the elevation profile data in
+  ``df_sub``. Start and end locations, total length and elevation gain,
+  and average/min/max grade.
 
   Args:
     df (pd.DataFrame): A DataFrame representing a recorded activity.
       Each row represents a record, and each column represents a stream
       of data. Assumed to have ``elevation`` and ``distance`` columns.
-    df_sub (pd.DataFrame): Optional. A DataFrame representing a subset
-      of the data in ``df``, re-sampled at even distance intervals.
+    df_sub (pd.DataFrame): A DataFrame representing an elevation profile.
+      Assumed to have ``elevation`` and ``distance`` columns, with the
+      ``distance`` data points evenly spaced.
 
   Returns:
     list(dbc.Table): children to be used with `dcc.Div`. Just contains
@@ -355,9 +354,11 @@ def create_stats_table(df_sub=None):
 
   table_body = [html.Tbody([row1])]
 
-  return [
-    dbc.Table(table_header + table_body, bordered=True, style={'text-align': 'center'}),
-  ]
+  return [dbc.Table(
+    table_header + table_body,
+    bordered=True,
+    style={'text-align': 'center'},
+  )]
 
 
 def read_csv(fname):
