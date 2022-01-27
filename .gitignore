@@ -1,0 +1,6 @@
+# Everything related to data wrangling from GPX -> CSV
+# data/Horsetooth\ Half\ Marathon.gpx
+# wrangling.py
+
+# TODO: Boilerplate stuff like env/
+env/

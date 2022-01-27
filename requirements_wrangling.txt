@@ -1,0 +1,4 @@
+# heartandsole with required dependencies
+heartandsole==0.0.23
+activereader==0.0.1
+pandas-xyz==0.0.5
